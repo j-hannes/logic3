@@ -1,3 +1,10 @@
+/* global angular */
+var app = angular.module('logic3', []);
+
+app.controller('BoardController', function() {
+  console.log(puzzleConfig);
+});
+
 var puzzleConfig = {
   vertical: [
     [4],
@@ -63,4 +70,3 @@ var puzzleConfig = {
   ],
 };
 
-console.log(puzzleConfig);
