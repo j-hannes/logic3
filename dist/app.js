@@ -1,8 +1,16 @@
 /* global angular */
 var app = angular.module('logic3', []);
 
-app.controller('BoardController', function() {
-  console.log(puzzleConfig);
+app.controller('BoardCtrl', function() {
+  this.puzzleConfig = puzzleConfig;
+});
+
+app.filter('spaceRequired', function() {
+  return function(blocks) {
+    var add = function(a,b) {return a+b};
+    var sum = blocks.reduce(add, 0);
+    return sum + blocks.length - 1;
+  };
 });
 
 var puzzleConfig = {

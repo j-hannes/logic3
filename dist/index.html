@@ -1,277 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="logic3">
 <head>
 	<meta charset="UTF-8">
 	<title></title>
   <link rel="stylesheet" href="normalize.min.css">
   <link rel="stylesheet" href="main.css">
 </head>
-<body>
-  <table class="board">
+<body ng-cloak>
+  <table class="board" ng-controller="BoardCtrl as board">
     <tr>
       <td colspan="3" rowspan="3" class="board-info"></td>
       <td class="vertical-markers">
-        <div class="marker">&nbsp;</div>
-        <div class="marker">&nbsp;</div>
-        <div class="marker">&nbsp;</div>
-        <div class="marker">&nbsp;</div>
-        <div class="marker">&nbsp;</div>
-        <div class="marker on">&nbsp;</div>
-        <div class="marker">&nbsp;</div>
-        <div class="marker">&nbsp;</div>
-        <div class="marker">&nbsp;</div>
-        <div class="marker">&nbsp;</div>
+        <div class="marker"
+             ng-repeat="_ in board.puzzleConfig.vertical">
+          &nbsp;
+        </div>
       </td>
     </tr>
     <tr>
       <td class="vertical-sums">
-        <div class="sum">4</div>
-        <div class="sum">3</div>
-        <div class="sum">3</div>
-        <div class="sum">3</div>
-        <div class="sum">10</div>
-        <div class="sum highlight">14</div>
-        <div class="sum">11</div>
-        <div class="sum">9</div>
-        <div class="sum">7</div>
-        <div class="sum">10</div>
+        <div class="sum"
+             ng-repeat="vblocks in board.puzzleConfig.vertical">
+          {{ vblocks | spaceRequired }}
+        </div>
       </td>
     </tr>
     <tr>
       <td class="vertical-blocks">
-        <div class="vblocks">
-          <div class="block">4</div>
-        </div>
-        <div class="vblocks">
-          <div class="block">3</div>
-        </div>
-        <div class="vblocks">
-          <div class="block">3</div>
-        </div>
-        <div class="vblocks">
-          <div class="block">3</div>
-        </div>
-        <div class="vblocks">
-          <div class="block">7</div>
-          <div class="block">2</div>
-        </div>
-        <div class="vblocks">
-          <div class="block">11</div>
-          <div class="block">2</div>
-        </div>
-        <div class="vblocks">
-          <div class="block">4</div>
-          <div class="block">4</div>
-          <div class="block">1</div>
-        </div>
-        <div class="vblocks">
-          <div class="block">3</div>
-          <div class="block">3</div>
-          <div class="block">1</div>
-        </div>
-        <div class="vblocks">
-          <div class="block">2</div>
-          <div class="block">2</div>
-          <div class="block">1</div>
-        </div>
-        <div class="vblocks">
-          <div class="block">2</div>
-          <div class="block">4</div>
-          <div class="block">2</div>
+        <div class="vblocks"
+             ng-repeat="vblocks in board.puzzleConfig.vertical">
+          <div class="block"
+               ng-repeat="vblock in vblocks track by $index">
+            {{ vblock }}
+          </div>
         </div>
       </td>
     </tr>
     <tr>
       <td class="horizontal-markers">
-        <div class="marker"></div>
-        <div class="marker"></div>
-        <div class="marker"></div>
-        <div class="marker"></div>
-        <div class="marker"></div>
-        <div class="marker"></div>
-        <div class="marker"></div>
-        <div class="marker"></div>
-        <div class="marker"></div>
-        <div class="marker"></div>
+        <div class="marker"
+             ng-repeat="_ in board.puzzleConfig.horizontal">
+        </div>
       </td>
       <td class="horizontal-sums">
-        <div class="sum">12</div>
-        <div class="sum">7</div>
-        <div class="sum">7</div>
-        <div class="sum">6</div>
-        <div class="sum">13</div>
-        <div class="sum">16</div>
-        <div class="sum">17</div>
-        <div class="sum">16</div>
-        <div class="sum">17</div>
-        <div class="sum">17</div>
+        <div class="sum"
+             ng-repeat="hblocks in board.puzzleConfig.horizontal">
+          {{ hblocks | spaceRequired }}
+        </div>
       </td>
       <td class="horizontal-blocks">
-        <div class="hblocks">
-          <div class="block">12</div>
-        </div>
-        <div class="hblocks">
-          <div class="block">4</div>
-          <div class="block">2</div>
-        </div>
-        <div class="hblocks">
-          <div class="block">2</div>
-          <div class="block">4</div>
-        </div>
-        <div class="hblocks">
-          <div class="block">3</div>
-          <div class="block">2</div>
-        </div>
-        <div class="hblocks">
-          <div class="block">2</div>
-          <div class="block">10</div>
-        </div>
-        <div class="hblocks">
-          <div class="block">2</div>
-          <div class="block">13</div>
-        </div>
-        <div class="hblocks">
-          <div class="block">2</div>
-          <div class="block">9</div>
-          <div class="block">4</div>
-        </div>
-        <div class="hblocks">
-          <div class="block">2</div>
-          <div class="block">4</div>
-          <div class="block">4</div>
-          <div class="block">3</div>
-        </div>
-        <div class="hblocks">
-          <div class="block">2</div>
-          <div class="block">5</div>
-          <div class="block">8</div>
-        </div>
-        <div class="hblocks">
-          <div class="block">2</div>
-          <div class="block">6</div>
-          <div class="block">7</div>
+        <div class="hblocks"
+             ng-repeat="hblocks in board.puzzleConfig.horizontal">
+          <div class="block"
+               ng-repeat="hblock in hblocks track by $index">
+            {{ hblock }}
         </div>
       </td>
       <td class="cells">
-        <div class="cell-row">
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-        </div>
-        <div class="cell-row">
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-        </div>
-        <div class="cell-row">
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell on"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-        </div>
-        <div class="cell-row">
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell">•</div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-        </div>
-        <div class="cell-row">
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-        </div>
-        <div class="cell-row">
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-        </div>
-        <div class="cell-row">
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-        </div>
-        <div class="cell-row">
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-        </div>
-        <div class="cell-row">
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-        </div>
-        <div class="cell-row">
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
-          <div class="cell"></div>
+        <div class="cell-row"
+             ng-repeat="_ in board.puzzleConfig.horizontal">
+          <div class="cell"
+             ng-repeat="_ in board.puzzleConfig.vertical">
+          </div>
         </div>
       </td>
     </tr>
